@@ -1,0 +1,43 @@
+@startuml
+
+Bank <-- BankAccount
+Bank <-- Client
+Client <-- BankAccount
+BankAccount --> BankAccountType
+BankAccount --> CurrencyType
+
+
+class Bank{
+-accounts : List<BankAccount>
+-clients : List<Client>
++openBankAccount(client : Client, type : BankAccountType, currency : CurrencyType) : BankAccount
+}
+
+class BankAccount{
+-id : UUID
+-type : BankAccountType
+-balance : double
+-currency : CurrencyType
+}
+
+enum CurrencyType{
+RON
+USD
+EURO
+}
+
+class Client{
+-id : UUID
+-name : String
+-account : List<BankAccount>
+
++wireMoney(myAccount : UUID, destinationAccount : UUID ,sum : double) : double
+-calculateFee() : double
+}
+
+enum BankAccountType{
+CORPORATE
+CONSUMER
+}
+
+@enduml
